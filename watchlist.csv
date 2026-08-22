@@ -1,0 +1,41 @@
+ticker,sector,thesis,date_added,priority
+IREN,AI Datacenter / Power,Power-first AI infrastructure pivot with significant secured capacity and NVIDIA-linked AI Cloud contracts,2026-08-22,high
+CIFR,AI Datacenter / Power,Former miner pivoted to HPC/AI hosting with multi-hundred MW contracted capacity and major cloud anchors,2026-08-22,high
+WULF,AI Datacenter / Power,AI data center conversion with large long-term leases and strong contracted revenue visibility,2026-08-22,high
+NBIS,AI Cloud / Neocloud,High-growth AI cloud operator with rapid revenue scaling and large remaining performance obligations,2026-08-22,high
+APLD,AI Datacenter,Physical AI data center infrastructure developer with growing contracted capacity,2026-08-22,high
+CRWV,AI Cloud / Neocloud,Pure-play GPU cloud / AI infrastructure with large backlog,2026-08-22,medium
+NVDA,Semiconductors / AI,Dominant AI accelerator franchise; core enabler of the entire datacenter buildout,2026-08-22,high
+AMD,Semiconductors / AI,AI CPU + GPU challenger with strong data center momentum,2026-08-22,high
+AVGO,Semiconductors / AI,Custom AI accelerators + networking; deep hyperscaler relationships,2026-08-22,high
+TSM,Semiconductors / Foundry,Leading-edge foundry capacity critical for AI chips; packaging constraints remain a bottleneck,2026-08-22,high
+ASML,Semiconductors / Equipment,Monopoly on EUV lithography required for advanced AI nodes,2026-08-22,medium
+MSFT,Hyperscaler / Software,Azure + OpenAI partnership + massive AI capex; durable software moat,2026-08-22,high
+AMZN,Hyperscaler / Cloud,AWS leadership + AI infrastructure spend + Trainium/Inferentia,2026-08-22,high
+GOOGL,Hyperscaler / AI,GCP growth + TPU + Search AI monetization,2026-08-22,high
+META,Hyperscaler / AI,Large-scale AI infrastructure build + open-source models + advertising AI leverage,2026-08-22,high
+ORCL,Cloud / Enterprise AI,Aggressive AI cloud and infrastructure push with large remaining performance obligations,2026-08-22,medium
+PLTR,Software / AI Platforms,AIP platform adoption in government and commercial; high-conviction growth story,2026-08-22,high
+NOW,Software / Enterprise AI,ServiceNow AI workflow automation and platform expansion,2026-08-22,medium
+LLY,Healthcare / Pharma,Obesity / diabetes franchise + aggressive AI-enabled drug discovery investments,2026-08-22,high
+ELV,Healthcare,Managed care with scale and AI-driven efficiency potential,2026-08-22,medium
+UNH,Healthcare,Largest managed care platform; defensive growth characteristics,2026-08-22,medium
+ISRG,Healthcare / MedTech,Robotic surgery leader with long runway and AI potential,2026-08-22,medium
+VRTX,Healthcare / Biotech,Cystic fibrosis franchise + pipeline optionality,2026-08-22,medium
+BTC-USD,Digital Assets,Bitcoin as digital gold / macro hedge sleeve,2026-08-22,high
+GLD,Precious Metals,Gold sleeve for cycle and geopolitical risk,2026-08-22,medium
+SGOV,Cash / Short Duration,Ultra-short Treasury for cash sleeve and opportunistic dry powder,2026-08-22,high
+BRK.B,Conglomerate / Quality,Quality compounder and defensive allocation option,2026-08-22,medium
+ANET,Networking / AI Infra,High-speed networking critical to AI clusters,2026-08-22,medium
+SMCI,AI Servers,AI server systems; high beta to GPU deployments,2026-08-22,medium
+MU,Semiconductors / Memory,High-bandwidth memory demand driven by AI training and inference,2026-08-22,medium
+DLR,Data Center REIT,Digital Realty – wholesale data center exposure with AI demand tailwind,2026-08-22,medium
+EQIX,Data Center REIT,Equinix – interconnection and retail colocation leader,2026-08-22,medium
+VST,Power / Utilities,Power generation exposure to rising AI electricity demand,2026-08-22,medium
+CEG,Power / Utilities,Constellation Energy – nuclear and clean power relevant to AI load growth,2026-08-22,medium
+TLN,Power / Utilities,Talen Energy – power assets with potential AI offtake,2026-08-22,medium
+RIOT,Crypto / AI Pivot,Bitcoin miner with AI / HPC conversion optionality,2026-08-22,low
+CLSK,Crypto / AI Pivot,CleanSpark – mining + potential HPC pivot,2026-08-22,low
+HIVE,Crypto / AI Pivot,HIVE Digital – mining and HPC exploration,2026-08-22,low
+GDS,Data Center (Asia),China / Asia data center exposure,2026-08-22,low
+VNET,Data Center (Asia),China data center operator,2026-08-22,low

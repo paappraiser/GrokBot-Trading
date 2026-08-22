@@ -1,0 +1,147 @@
+{
+  "as_of": "2026-08-22",
+  "theme": "AI / Datacenter Infrastructure / Healthcare Innovation / Digital Assets",
+  "theme_confidence": 78,
+  "cash_gold_btc_sleeve_target": "12-20%",
+  "notes": "Starter model book for Flagship Growth Desk. Concentrated 15-20 names. Edit weights and names freely. Portfolio Construction Bot owns this file going forward. All suggestions are recommendations only — operator executes manually.",
+  "holdings": [
+    {
+      "ticker": "IREN",
+      "weight_pct": 7.5,
+      "lynch_category": "Pure Fast Grower",
+      "thesis": "Power-first AI infrastructure with significant secured capacity and NVIDIA-linked AI Cloud contracts",
+      "key_risk": "Execution on power delivery and customer concentration",
+      "status": "core"
+    },
+    {
+      "ticker": "CIFR",
+      "weight_pct": 6.5,
+      "lynch_category": "Pure Fast Grower",
+      "thesis": "HPC/AI hosting conversion with multi-hundred MW contracted capacity and major cloud anchors",
+      "key_risk": "Energization timelines and financing",
+      "status": "core"
+    },
+    {
+      "ticker": "WULF",
+      "weight_pct": 6.0,
+      "lynch_category": "Pure Fast Grower",
+      "thesis": "AI data center conversion with large long-term leases and strong contracted revenue visibility",
+      "key_risk": "Lease conversion and construction risk",
+      "status": "core"
+    },
+    {
+      "ticker": "NBIS",
+      "weight_pct": 7.0,
+      "lynch_category": "Pure Fast Grower",
+      "thesis": "High-growth AI cloud operator with rapid revenue scaling and large remaining performance obligations",
+      "key_risk": "Valuation and customer concentration",
+      "status": "core"
+    },
+    {
+      "ticker": "NVDA",
+      "weight_pct": 8.0,
+      "lynch_category": "Stalwart with Breakout Potential",
+      "thesis": "Dominant AI accelerator franchise; essential to the entire datacenter buildout",
+      "key_risk": "Competition and cyclical capex",
+      "status": "core"
+    },
+    {
+      "ticker": "MSFT",
+      "weight_pct": 7.5,
+      "lynch_category": "Pure Stalwart",
+      "thesis": "Azure + OpenAI partnership + massive AI capex; durable software and cloud moat",
+      "key_risk": "Capex intensity vs returns",
+      "status": "core"
+    },
+    {
+      "ticker": "AMZN",
+      "weight_pct": 7.0,
+      "lynch_category": "Pure Stalwart",
+      "thesis": "AWS leadership + AI infrastructure spend + custom silicon",
+      "key_risk": "Retail margins and regulatory",
+      "status": "core"
+    },
+    {
+      "ticker": "META",
+      "weight_pct": 6.0,
+      "lynch_category": "Stalwart with Breakout Potential",
+      "thesis": "Large-scale AI infrastructure + open models + advertising AI leverage",
+      "key_risk": "Ad cycle and regulatory",
+      "status": "core"
+    },
+    {
+      "ticker": "PLTR",
+      "weight_pct": 5.5,
+      "lynch_category": "Pure Fast Grower",
+      "thesis": "AIP platform adoption across government and commercial customers",
+      "key_risk": "Valuation and government budget sensitivity",
+      "status": "core"
+    },
+    {
+      "ticker": "LLY",
+      "weight_pct": 6.5,
+      "lynch_category": "Pure Fast Grower",
+      "thesis": "Obesity/diabetes franchise + aggressive AI-enabled drug discovery investments",
+      "key_risk": "Competition in GLP-1 and pipeline risk",
+      "status": "core"
+    },
+    {
+      "ticker": "AVGO",
+      "weight_pct": 5.0,
+      "lynch_category": "Stalwart with Breakout Potential",
+      "thesis": "Custom AI accelerators and networking with deep hyperscaler relationships",
+      "key_risk": "Customer concentration and cyclicality",
+      "status": "core"
+    },
+    {
+      "ticker": "TSM",
+      "weight_pct": 5.0,
+      "lynch_category": "Stalwart with Breakout Potential",
+      "thesis": "Leading-edge foundry capacity critical for AI chips; advanced packaging bottleneck",
+      "key_risk": "Geopolitical and capacity concentration in Taiwan",
+      "status": "core"
+    },
+    {
+      "ticker": "NOW",
+      "weight_pct": 4.0,
+      "lynch_category": "Stalwart with Breakout Potential",
+      "thesis": "Enterprise AI workflow automation and platform expansion",
+      "key_risk": "Competition and valuation",
+      "status": "satellite"
+    },
+    {
+      "ticker": "ELV",
+      "weight_pct": 3.5,
+      "lynch_category": "Pure Stalwart",
+      "thesis": "Managed care scale with AI-driven efficiency potential",
+      "key_risk": "Policy and medical cost trends",
+      "status": "satellite"
+    },
+    {
+      "ticker": "BTC-USD",
+      "weight_pct": 5.0,
+      "lynch_category": "Asset Play",
+      "thesis": "Digital gold / macro hedge and long-term digital asset exposure",
+      "key_risk": "Volatility and regulatory",
+      "status": "sleeve"
+    },
+    {
+      "ticker": "GLD",
+      "weight_pct": 3.0,
+      "lynch_category": "Asset Play",
+      "thesis": "Gold sleeve for cycle, inflation, and geopolitical risk",
+      "key_risk": "Opportunity cost in strong risk-on regimes",
+      "status": "sleeve"
+    },
+    {
+      "ticker": "SGOV",
+      "weight_pct": 7.0,
+      "lynch_category": "Cash / Short Duration",
+      "thesis": "Dry powder and cash sleeve for opportunistic adds and defensive posture",
+      "key_risk": "None material",
+      "status": "sleeve"
+    }
+  ],
+  "total_weight_check": 100.0,
+  "rebalance_notes": "Starter weights are illustrative. Portfolio Construction Bot will produce weekly suggested changes with explicit rationale. Operator decides and executes manually."
+}
