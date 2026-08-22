@@ -1,0 +1,41 @@
+# Flagship Growth Desk – Python dependencies
+# For use when running outside the native Grok Bot environment
+# Install with: pip install -r requirements.txt
+
+# Core data & analysis
+pandas>=2.0.0
+numpy>=1.24.0
+yfinance>=0.2.36
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# SEC EDGAR / filings helpers
+sec-edgar-downloader>=5.0.0          # convenient bulk downloader
+# alternative pure approach also works with requests + parsing
+
+# Graph & Spatiotemporal layer (Hermes-style)
+networkx>=3.1
+scipy>=1.11.0
+scikit-learn>=1.3.0                  # optional: simple regime clustering / PCA
+
+# Time, calendar, utilities
+python-dateutil>=2.8.2
+pytz>=2023.3
+schedule>=1.2.0                      # optional local scheduling
+
+# Google Calendar (if driving from local Python instead of Grok tools)
+google-api-python-client>=2.100.0
+google-auth-httplib2>=0.2.0
+google-auth-oauthlib>=1.1.0
+
+# Optional visualization (for graph health reports or portfolio snapshots)
+matplotlib>=3.7.0
+plotly>=5.15.0
+
+# Optional technicals / extras (only if you expand signals later)
+# pandas-ta>=0.3.14b
+# ta>=0.11.0
+
+# Standard library (no install needed)
+# json, pathlib, datetime, csv, logging, collections, itertools

@@ -133,8 +133,43 @@ Start simple. Iterate with Evolve. Compound.
 
 ---
 
+## 9. Libraries & Dependencies (Important if NOT running on Grok Bot)
+
+The original architecture assumed Grok Bot’s native computer-use and ephemeral code execution.  
+If you are testing or running the desk **outside** Grok Bot (local Python, another agent platform, custom orchestration, etc.), install the packages listed in `requirements.txt`.
+
+```bash
+pip install -r requirements.txt
+```
+
+### Core recommended packages
+
+| Category                  | Packages                                      | Purpose                                      |
+|---------------------------|-----------------------------------------------|----------------------------------------------|
+| Data & prices             | pandas, numpy, yfinance, requests             | Price history, dataframes, HTTP              |
+| Filings / EDGAR           | sec-edgar-downloader, beautifulsoup4, lxml    | Download & parse 10-K/10-Q/8-K/Form 4        |
+| Graph & Spatiotemporal    | networkx, scipy, scikit-learn                 | Correlation graphs, lag analysis, regimes    |
+| Time & calendar           | python-dateutil, pytz, schedule               | Dates, timezones, local scheduling           |
+| Google Calendar (local)   | google-api-python-client + auth libs          | Create/update events from Python             |
+| Visualization (optional)  | matplotlib, plotly                            | Graph health or portfolio snapshots          |
+
+Standard library modules (json, pathlib, datetime, csv, logging) are sufficient for state management and most I/O.
+
+### Notes for non-GrokBot environments
+
+- The system prompts remain the same. The bots still expect the `/workspace/` folder structure.
+- Replace any “native X integration” or Grok-specific tools with equivalent API calls or data sources you have access to.
+- For Calendar Bot: either keep using connected Google tools if available, or switch to the Google Calendar Python client listed above.
+- Graph & Spatiotemporal Engineer can run pure pandas + networkx correlation matrices and simple lag features without heavy ML.
+- Keep the maker-checker separation and the Evolve human-approval gate even if you re-implement the orchestration layer yourself.
+
+See `requirements.txt` in this repo for the exact pin-friendly list.
+
+---
+
 **Files in this repo for setup:**
 - `Grok Bot - Flagship Growth Desk.txt` (full architecture + all prompts)
 - `SETUP.md` (this file)
 - `watchlist.csv` (starter research universe)
 - `model_portfolio.json` (starter concentrated book)
+- `requirements.txt` (Python libraries for non-GrokBot use)
