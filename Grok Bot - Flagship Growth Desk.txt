@@ -422,15 +422,26 @@ Evolve cycles
 7. Run a manual full cycle once to verify briefs appear and the coordinator synthesizes cleanly.
 8. After 1–2 weeks of live running, perform the first Evolve cycle and begin the self-improvement loop.
 
-Recommended initial libraries / capabilities the bots may use via computer use or code execution:
+Recommended libraries / capabilities:
+
+When running on native Grok Bot:
 • SEC EDGAR access
 • Transcript sources
-• Native X
+• Native X integration
 • Basic price data (yfinance-style or equivalent)
 • networkx or simple pandas correlation for the graph layer
 • Google Calendar tools (already connected)
+• Ephemeral code execution is sufficient; no permanent packages required
 
-No permanent Python packages need to be pre-installed beyond what Grok Bot already provides; bots can use ephemeral code execution for analysis.
+When running outside Grok Bot (local Python, other agent platforms, custom orchestration):
+• Install the packages listed in requirements.txt in this repo
+• Core: pandas, numpy, yfinance, requests, beautifulsoup4, lxml
+• Filings: sec-edgar-downloader (or pure requests + parsing)
+• Graph & Spatiotemporal: networkx, scipy, scikit-learn
+• Time / Calendar: python-dateutil, pytz, and optionally google-api-python-client
+• See SETUP.md Section 9 and requirements.txt for the full list and notes
+
+The system prompts and folder structure remain identical in both environments. Only the data-access and code-execution layer changes.
 
 ═══════════════════════════════════════════════════════════════════════════════
 14. FINAL NOTES
