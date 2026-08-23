@@ -1,6 +1,6 @@
 # GrokBot-Trading
 
-**Primary system: Flagship Growth Desk (v1.1)**
+**Primary system: Flagship Growth Desk (v1.2 Lean)**
 
 This repo contains one active trading-research system and one archived backup.
 
@@ -18,11 +18,10 @@ It is a concentrated, adaptive research + recommendation desk designed to help b
 - Weekly rebalance suggestions
 - Macro / cycle awareness
 - Theme can rotate when evidence changes
-- Self-improving (with your approval)
+- Measured self-improvement (with your approval)
 - You still execute every trade manually
 
-**Goal: stay profitable.**  
-The architecture exists to support that goal — not to create complexity for its own sake. Use only the pieces that help. Ignore or disable anything that feels overboard.
+Version 1.2 is the lean build: 8 bots instead of 13, combined research coverage, optional lightweight graph context. Still robust — not stripped down to the point of losing useful signal.
 
 Supporting files:
 - `SETUP.md` — first-weekend checklist
@@ -54,4 +53,4 @@ They are not part of the active system.
 5. Run the overnight research + weekly Flagship cycle.
 6. You decide and execute.
 
-Keep it simple. Focus on clear high-conviction ideas and sensible position management. Profitability first.
+Keep it usable. Focus on clear high-conviction ideas and sensible position management.
