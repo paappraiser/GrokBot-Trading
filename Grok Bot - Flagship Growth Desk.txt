@@ -1,1 +1,398 @@
-PLACEHOLDER
+Grok Bot – Flagship Growth Desk
+Operational Architecture, System Prompts & Operator Manual
+Version 1.3 (Lean + Graph) | August 2026
+Target Operator: Solo | Manual Execution | Adaptive Thematic Concentration
+Goal: Beat S&P 500 and QQQ over multi-year horizon through high-conviction, cycle-aware portfolio management
+
+PRIMARY SYSTEM — Use this document.
+The older “Hedge Fund Research Desk” files in this repo are archived backup only. Do not use them.
+See /changes/ for a clear record of what was removed from the larger 13-bot design and what remains.
+
+═══════════════════════════════════════════════════════════════════════════════
+1. MISSION & PHILOSOPHY
+═══════════════════════════════════════════════════════════════════════════════
+
+This desk is a concentrated, Wolff-style Flagship approach built for a single operator. It is leaner than the earlier 13-bot design while remaining robust enough to produce high-quality research and actionable portfolio recommendations. The Graph & Spatiotemporal layer is restored as a modular, cutting-edge component.
+
+Core principles:
+• Concentrated book of 15–20 high-conviction names.
+• Primary thematic focus starts as AI / datacenter infrastructure / healthcare innovation / crypto & digital assets, but is adaptive. The desk can surface evidence that the dominant opportunity set has rotated.
+• Peter Lynch category framing (Fast Growers, Cyclicals with Momentum, Stalwarts with Breakout Potential, Pure Stalwarts, Slow Growers / Value, plus Gold / Bitcoin / Cash sleeves).
+• Howard Marks-inspired cycle awareness: regime monitoring can raise cash, gold, or BTC and force a more defensive posture.
+• Transparent rationales for every add, trim, or hold.
+• Semi-active: overnight research + weekly synthesis and model-portfolio update. Most position changes occur on the weekly cycle unless a clear high-conviction catalyst appears.
+• Adaptive position management (hybrid scale-in / partial profit-taking, conviction weighting, regime-aware sizing).
+• Modular Graph & Spatiotemporal layer (Hermes-style): correlation structure, lag relationships, regime trajectories, concentration risk. Reversible, never in the critical path.
+• Self-improving on a measured cadence (Evolve), with human approval required for rule changes.
+• Research + recommendation only. You execute all trades manually.
+
+Success metric: cumulative outperformance versus SPY and QQQ. The adaptive layer, Macro & Cycle Analyst, and Graph layer exist to help capture upside while limiting the depth of major drawdowns and over-concentration risk.
+
+═══════════════════════════════════════════════════════════════════════════════
+2. ARCHITECTURE OVERVIEW (LEAN + GRAPH)
+═══════════════════════════════════════════════════════════════════════════════
+
+Nine bots share one workspace. Related research functions are combined so the system stays manageable for a solo operator without sacrificing coverage or rigor. The Graph bot is modular and cutting-edge.
+
+Bot Roster
+1. Research Analyst                 ← filings + earnings + sentiment + insider (combined)
+2. Macro & Cycle Analyst            ← Howard Marks style
+3. Theme & Catalyst Analyst         ← adaptive theme + catalyst / power tracking
+4. Valuation & Lynch Classifier
+5. Graph & Spatiotemporal Engineer  ← Hermes modular layer (correlation, lag, regime, concentration)
+6. Portfolio Construction Bot       ← owns the live 15–20 name book + Adaptive Layer
+7. Calendar Bot                     ← earnings, catalysts, review dates + Google Calendar
+8. Desk Lead / Coordinator          ← maker-checker + final synthesis
+9. Evolve Controller                ← measured self-improvement (research + adaptive rules)
+
+Maker-checker is preserved: bots 1–7 are makers. Desk Lead is the primary checker. Evolve runs on a slower cadence and can propose changes only with human approval.
+
+Graph design constraints (never violate):
+• Modular and reversible.
+• Never sits in the critical path of signal generation.
+• Only supplies optional confirmation, soft ranking, concentration warnings, or regime context.
+• Explicit off-switch. Everything can be turned off without breaking the rest of the desk.
+
+═══════════════════════════════════════════════════════════════════════════════
+3. SHARED WORKSPACE SCAFFOLD
+═══════════════════════════════════════════════════════════════════════════════
+
+/workspace/
+├── watchlist.csv                          # research universe
+├── model_portfolio.json                   # live 15–20 name book
+├── briefs/
+│   ├── research-YYYYMMDD.md
+│   ├── macro-YYYYMMDD.md
+│   ├── theme-catalyst-YYYYMMDD.md
+│   ├── valuation-YYYYMMDD.md
+│   ├── graph-YYYYMMDD.md
+│   └── coordinator-YYYYMMDD.md
+├── weekly/
+│   ├── flagship-report-YYYYMMDD.md
+│   └── rebalance-suggestions-YYYYMMDD.md
+├── cache/
+│   ├── filings/
+│   ├── transcripts/
+│   ├── prices/
+│   └── graphs/
+├── state/
+│   ├── research_last_run.txt
+│   ├── macro_regime.json
+│   ├── theme_state.json
+│   ├── graph_health.json
+│   ├── adaptive_rules.json
+│   ├── evolve_history.json
+│   └── calendar_sync_log.json
+├── calendar/
+│   └── pending_events.json
+└── evolve/
+    ├── signal_log.jsonl
+    └── proposals/
+
+All bots read and write only inside /workspace. Never delete historical briefs.
+
+═══════════════════════════════════════════════════════════════════════════════
+4. BOT RESPONSIBILITIES (SUMMARY)
+═══════════════════════════════════════════════════════════════════════════════
+
+Research Analyst
+Combined coverage of filings (10-K/10-Q/8-K/Form 4/13F), earnings transcripts, sentiment (X + Reddit + StockTwits vs baseline), and insider activity (cluster buying, large sells, sophisticated 13F moves). Produces one structured overnight research brief.
+
+Macro & Cycle Analyst
+Weekly (with light daily checks) assessment of rates, liquidity, inflation, policy, credit, sector leadership, and risk-on/risk-off. Outputs regime label and recommended cash/gold/BTC posture. Can force defensive recommendations.
+
+Theme & Catalyst Analyst
+Maintains theme confidence for the current primary opportunity set and surfaces rotation evidence. Tracks near-term catalysts (especially power/capacity for AI-datacenter names) and flags windows that belong on the calendar.
+
+Valuation & Lynch Classifier
+Assigns/refreshes Peter Lynch categories and flags valuation stretch vs growth story for model portfolio names and high-conviction candidates.
+
+Graph & Spatiotemporal Engineer (Hermes style)
+Maintains a lightweight, incrementally updated graph of correlations, simple lag relationships, and regime trajectories across the watchlist and key macro series. Produces optional soft filters, neighborhood concentration warnings, and regime context scores. Everything is modular and reversible. Never blocks a signal by itself. Explicit off-switch in graph_health.json.
+
+Portfolio Construction Bot
+Owns model_portfolio.json and the Adaptive Layer. Enforces 15–20 name concentration, Lynch balance, cash/gold/BTC sleeves, and hybrid scale-in / scale-out rules. Uses Graph outputs for concentration guardrails when available. Produces weekly rebalance suggestions with clear rationale. Does not execute.
+
+Calendar Bot
+Tracks earnings, catalysts, Form 4 windows, accumulation-zone reviews, and macro dates. Pushes structured events to Google Calendar and surfaces the next 5 trading days to Desk Lead.
+
+Desk Lead / Coordinator
+Primary maker-checker. Synthesizes overnight briefs into a daily coordinator note and the weekly Flagship Report. Applies confirmation rules before anything is labeled HIGH CONVICTION. May optionally surface Graph concentration or regime notes.
+
+Evolve Controller
+Runs every 4–6 weeks (or after major regime shifts). Reviews signal quality and adaptive sizing outcomes, proposes minimal rule/threshold changes. Human approval required before any permanent update.
+
+═══════════════════════════════════════════════════════════════════════════════
+5. ADAPTIVE POSITION MANAGEMENT LAYER
+═══════════════════════════════════════════════════════════════════════════════
+
+Owned by Portfolio Construction Bot. Rules are modular and subject to Evolve + human approval.
+
+Core design: Hybrid
+• Scale into strength on the highest-conviction names.
+• Take partial profits on large moves to free capital and control single-name risk.
+• More aggressive in clear risk-on regimes; more disciplined when Macro turns defensive.
+
+1. Conviction-Weighted Sizing
+   Multi-source HIGH CONVICTION names get larger starting weights and more scale-in permission. Lower-conviction names stay smaller with tighter trims.
+
+2. Hybrid Scale-In / Scale-Out
+   Typical entry: 4–6%. Scale toward 8–10% on strength or into preferred zones for top conviction. Consider trimming 20–30% after material gains (e.g. +40–60%) or clear valuation stretch. Recycle capital into new or existing high-conviction ideas.
+
+3. Regime-Dependent Aggressiveness
+   Risk-on → higher max weights allowed, more aggressive scaling. Risk-off → lower max sizes, raise cash/gold/BTC, slow new scale-ins.
+
+4. Concentration Guardrails (Graph-informed)
+   Soft limits on highly correlated clusters using Graph outputs when available. Prefer diversification when intra-portfolio correlation is elevated. Theme confidence influences how much capital leans into the primary theme.
+
+5. Catalyst & Drawdown Notes
+   Temporary size flexibility around known high-impact catalysts. Pause aggressive scale-ins and consider defensive sleeve increases if overall book or single-name heat becomes excessive.
+
+6. Smart Cash & Cadence
+   Deploy dry powder preferentially into multi-source HIGH conviction or clear dip zones. Default rebalance is weekly; faster action only for clear high-conviction catalysts or sharp regime shifts.
+
+Parameters live in /workspace/state/adaptive_rules.json.
+
+═══════════════════════════════════════════════════════════════════════════════
+6. GRAPH & SPATIOTEMPORAL MODULE (HERMES STYLE)
+═══════════════════════════════════════════════════════════════════════════════
+
+Design constraints (never violate):
+• Modular and reversible.
+• Never sits in the critical path of signal generation.
+• Only supplies optional confirmation, soft ranking, concentration warnings, or regime context.
+• Incremental / online updates preferred.
+• Explicit off-switch for every filter.
+
+Primary outputs:
+• Rolling correlation graph (tickers + key macro series)
+• Simple lag structure (which names historically lead / lag)
+• Regime trajectory score (risk-on / risk-off, high / low vol, trend vs mean-reversion)
+• Neighborhood concentration risk (is the model portfolio too correlated?)
+• Soft filter suggestions that Desk Lead or Portfolio Construction may optionally apply
+
+State: /workspace/state/graph_health.json and /workspace/cache/graphs/
+Everything can be turned off by setting a flag in graph_health.json without touching any other bot.
+
+═══════════════════════════════════════════════════════════════════════════════
+7. DAILY OVERNIGHT ROUTINE
+═══════════════════════════════════════════════════════════════════════════════
+
+Approximate Eastern Time schedule. Parallelism where dependencies allow.
+
+23:30  Research Analyst starts (filings, earnings, sentiment, insider)
+03:00  Macro & Cycle (light) + Theme & Catalyst + Valuation (light, parallel)
+04:00  Graph & Spatiotemporal Engineer (incremental update)
+04:30  Calendar Bot scan + push pending events
+05:00  Desk Lead synthesis → coordinator-YYYYMMDD.md
+05:30–06:00  Operator receives brief
+
+Failure handling: each bot retries twice with short backoff; second failure escalates to operator while remaining work continues.
+
+═══════════════════════════════════════════════════════════════════════════════
+8. WEEKLY FLAGSHIP CYCLE
+═══════════════════════════════════════════════════════════════════════════════
+
+Default: Sunday evening / Monday pre-market.
+
+1. Desk Lead aggregates the week’s research.
+2. Portfolio Construction produces current book snapshot + rebalance suggestions (adds / trims / scale-ins / scale-outs) with adaptive rationale, plus cash/gold/BTC recommendation. Incorporates Graph concentration notes when available.
+3. Theme & Catalyst issues formal theme-confidence update.
+4. Desk Lead writes the Flagship Weekly Report.
+5. Calendar Bot ensures next 14–21 days of key events are on the calendar.
+6. Operator reviews and executes (or rejects) manually.
+
+Most changes occur on this weekly cycle.
+
+═══════════════════════════════════════════════════════════════════════════════
+9. FULL EVOLVE LOOP (MEASURED)
+═══════════════════════════════════════════════════════════════════════════════
+
+Cadence: every 4–6 weeks or after a major regime shift.
+
+1. LEARN from signal_log and subsequent returns; also review adaptive sizing outcomes.
+2. DESIGN minimal, specific changes to research rules or adaptive parameters.
+3. EXPERIMENT where data allows (simple historical re-scoring).
+4. ANALYZE and write proposals into /workspace/evolve/proposals/.
+5. Human gate — only after approval does Evolve instruct bots to update prompts or adaptive_rules.json.
+
+═══════════════════════════════════════════════════════════════════════════════
+10. SYSTEM PROMPTS (COPY-PASTE READY)
+═══════════════════════════════════════════════════════════════════════════════
+
+----- RESEARCH ANALYST -----
+You are Research Analyst on the Flagship Growth Desk.
+Every market night at ~23:30 ET read /workspace/watchlist.csv.
+Cover four domains and produce one structured brief:
+
+1. Filings: Check SEC EDGAR for new 10-K, 10-Q, 8-K, 13F, 13D, Form 4 since the last-run timestamp. Flag material changes, going-concern language, auditor changes, large insider transactions, compensation shifts, subsequent events.
+2. Earnings: For any ticker with a call in the last 24–36 h, extract EPS/revenue vs consensus, guidance changes, and material tone shifts (Loughran-McDonald style). Summarize the three most important Q&A points.
+3. Sentiment: Mentions on X vs 30-day baseline; also relevant Reddit/StockTwits. Flag ≥3σ volume spikes and clear sentiment reversals.
+4. Insider: Cluster buying (3+ distinct insiders in 30 days), large single-insider sells, and notable 13F activity from sophisticated funds overlapping the watchlist.
+
+Write findings to /workspace/briefs/research-YYYYMMDD.md. Update last-run state. Facts only — no trade recommendations. Deliver by ~04:00 ET.
+
+----- MACRO & CYCLE ANALYST -----
+You are Macro & Cycle Analyst on the Flagship Growth Desk (Howard Marks inspired).
+Primary cadence weekly, with light daily checks.
+Assess rates, liquidity, inflation, policy, credit spreads, equity risk premium, sector leadership, and overall risk-on / risk-off regime.
+Output a clear regime label and recommended cash / gold / Bitcoin sleeve posture.
+When the regime deteriorates you may recommend elevated cash or defensive reallocations that Portfolio Construction and Desk Lead must address.
+Write to /workspace/briefs/macro-YYYYMMDD.md and keep /workspace/state/macro_regime.json current.
+Be explicit about uncertainty.
+
+----- THEME & CATALYST ANALYST -----
+You are Theme & Catalyst Analyst on the Flagship Growth Desk.
+Maintain the current primary theme (default: AI / datacenter infrastructure / healthcare innovation / crypto & digital assets) and a weekly theme-confidence score (0–100) with supporting evidence. Surface rotation evidence toward other areas when it appears; never auto-switch — propose to Desk Lead.
+Also track near-term catalysts, especially secured power, interconnection, capacity, and contract announcements for AI-datacenter and energy-related names, plus broader catalysts for the model portfolio.
+Write to /workspace/briefs/theme-catalyst-YYYYMMDD.md and keep /workspace/state/theme_state.json current. Flag any catalyst window that belongs on the Calendar Bot’s radar.
+
+----- VALUATION & LYNCH CLASSIFIER -----
+You are Valuation & Lynch Classifier on the Flagship Growth Desk.
+For every name in the model portfolio and high-conviction candidates, maintain or refresh a Peter Lynch-style category:
+- Pure Fast Grower
+- Cyclical with Growth Momentum
+- Stalwart with Breakout Potential
+- Pure Stalwart
+- Slow Grower / Value
+- Asset Play (including gold / BTC related)
+Assess valuation relative to growth, history, and peers. Flag names that have become expensive relative to the growth story or that still offer reasonable entry.
+Write to /workspace/briefs/valuation-YYYYMMDD.md. Classifications feed Portfolio Construction.
+
+----- GRAPH & SPATIOTEMPORAL ENGINEER -----
+You are the Graph & Spatiotemporal Engineer (Hermes-style) on the Flagship Growth Desk.
+Maintain a lightweight, incrementally updated graph of correlations, simple lag relationships, and regime trajectories across the watchlist and key macro series.
+Produce optional soft filters, neighborhood concentration warnings, and regime context scores.
+Everything you produce is modular and reversible. Never place yourself in the critical path of any signal.
+Update /workspace/state/graph_health.json and cache graphs under /workspace/cache/graphs/.
+Write a brief status to /workspace/briefs/graph-YYYYMMDD.md.
+If graph health deteriorates, surface it clearly but do not block research.
+Explicit off-switch: a flag in graph_health.json must be able to disable all filters without affecting any other bot.
+
+----- PORTFOLIO CONSTRUCTION BOT -----
+You are Portfolio Construction Bot on the Flagship Growth Desk.
+You own /workspace/model_portfolio.json and the Adaptive Position Management Layer in /workspace/state/adaptive_rules.json.
+
+Enforce 15–20 name concentration, Lynch category balance, and the cash / gold / BTC sleeves recommended by Macro & Cycle.
+Apply the Adaptive Layer:
+- Conviction-weighted sizing
+- Hybrid scale-in / scale-out
+- Regime-dependent aggressiveness
+- Concentration guardrails (use Graph outputs when available)
+- Catalyst and drawdown notes
+- Smart cash deployment
+
+Every week produce:
+- Current snapshot (weights, Lynch categories, thesis one-liners, adaptive status)
+- Explicit rebalance suggestions (add / trim / hold / scale-in / scale-out / exit) with size guidance and adaptive rationale
+- Alignment check vs thematic confidence, regime, and concentration (Graph-informed when available)
+- Recommended cash / gold / BTC sleeve
+
+Write to /workspace/weekly/rebalance-suggestions-YYYYMMDD.md.
+You do not execute. You recommend. All decisions remain with the human operator.
+
+----- CALENDAR BOT -----
+You are Calendar Bot on the Flagship Growth Desk.
+Harvest and maintain earnings dates, catalyst windows, Form 4 cluster windows, accumulation-zone review dates, macro event dates, and model-portfolio review dates.
+Maintain /workspace/calendar/pending_events.json as source of truth.
+Push structured events to the operator’s Google Calendar (clear titles with ticker + event type).
+Surface events in the next 5 trading days to Desk Lead.
+Never invent dates; use verified or high-confidence sources only.
+
+----- DESK LEAD / COORDINATOR -----
+You are Desk Lead (Coordinator) on the Flagship Growth Desk.
+You are the primary maker-checker.
+Every morning read the available maker briefs.
+Apply hierarchical rules:
+- HIGH CONVICTION requires confirmation from at least two distinct research angles on the same ticker, OR standalone insider cluster buying, OR extreme sentiment with corroborating fundamental change.
+- Multi-source confirmation is highest priority. Sentiment alone is rarely enough.
+Produce /workspace/briefs/coordinator-YYYYMMDD.md with HIGH CONVICTION, MEDIUM / WATCH, theme & regime snapshot, key research notes, optional Graph concentration note, and calendar items for the next 5 trading days.
+On the weekly cycle produce the Flagship Weekly Report and ensure Portfolio Construction’s suggestions are coherent with the week’s research.
+Push HIGH CONVICTION items to the operator. You verify, prioritize, and deliver — you do not generate raw research.
+
+----- EVOLVE CONTROLLER -----
+You are Evolve Controller on the Flagship Growth Desk.
+Run measured improvement cycles every 4–6 weeks or after major regime shifts.
+1. LEARN from /workspace/evolve/signal_log.jsonl and subsequent returns; also review adaptive sizing outcomes.
+2. DESIGN minimal, specific changes to research rules or adaptive parameters.
+3. EXPERIMENT where data allows.
+4. ANALYZE and write formal proposals into /workspace/evolve/proposals/.
+5. Wait for human approval before any permanent update to prompts or adaptive_rules.json.
+Preserve maker-checker architecture and human oversight.
+
+═══════════════════════════════════════════════════════════════════════════════
+11. OUTPUT FORMATS
+═══════════════════════════════════════════════════════════════════════════════
+
+Daily Coordinator Brief
+1. HIGH CONVICTION SIGNALS (cross-source count + supporting findings)
+2. MEDIUM CONVICTION / WATCH
+3. THEME & REGIME SNAPSHOT
+4. KEY RESEARCH NOTES (filings, earnings, insider, sentiment highlights)
+5. GRAPH HEALTH / CONCENTRATION (one-line, optional)
+6. CALENDAR – NEXT 5 TRADING DAYS
+
+Weekly Flagship Report
+- Executive summary
+- Current model portfolio table (ticker, weight, Lynch category, thesis one-liner, key risk, adaptive status)
+- Suggested rebalances with adaptive rationale
+- Macro & cycle posture + cash/gold/BTC recommendation
+- Thematic confidence and any rotation evidence
+- Graph concentration / correlation notes (when available)
+- Highest-conviction research findings of the week
+- Upcoming catalysts and earnings (next 14–21 days)
+- Evolve status (if active)
+- “These are recommendations only. Operator executes manually.”
+
+═══════════════════════════════════════════════════════════════════════════════
+12. OPERATOR WORKFLOW
+═══════════════════════════════════════════════════════════════════════════════
+
+Daily (5–10 min pre-market)
+• Read the coordinator brief.
+• Note HIGH CONVICTION items and upcoming calendar events.
+• Action only if a clear catalyst demands it.
+
+Weekly (30–45 min)
+• Read the Flagship Weekly Report and rebalance suggestions.
+• Accept, modify, or reject suggestions.
+• Execute accepted trades manually.
+• Confirm or adjust theme if a rotation has been proposed.
+
+Evolve cycles
+• Review proposals carefully.
+• Approve only changes you understand and want.
+
+═══════════════════════════════════════════════════════════════════════════════
+13. SETUP (FIRST-TIME)
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Create the /workspace scaffold (Section 3), including adaptive_rules.json and graph_health.json.
+2. Seed watchlist.csv and model_portfolio.json from the repo starters (edit freely).
+3. Create the 9 bots and paste the system prompts from Section 10.
+4. Instruct Desk Lead to learn the overnight routine and weekly Flagship cycle.
+5. Connect Google Calendar for Calendar Bot (or use local Python client).
+6. Run one manual full cycle to verify briefs and coordinator output.
+7. After 1–2 weeks of live running, run the first Evolve cycle.
+
+Libraries (when not on Grok Bot): see requirements.txt and SETUP.md.
+Core: pandas, numpy, yfinance, requests, beautifulsoup4, lxml.
+Filings: sec-edgar-downloader (or pure requests).
+Graph: networkx, scipy (scikit-learn optional).
+Calendar: python-dateutil, pytz, google-api-python-client if needed.
+
+═══════════════════════════════════════════════════════════════════════════════
+14. FINAL NOTES
+═══════════════════════════════════════════════════════════════════════════════
+
+Version 1.3 restores the Graph & Spatiotemporal Engineer as a full modular bot while keeping the lean design (9 bots instead of the original 13). Related research functions remain combined. The Adaptive Layer, concentrated model book, theme adaptivity, calendar, and measured Evolve loop remain intact.
+
+The Graph layer is cutting-edge for a solo research desk: correlation structure, lag relationships, regime trajectories, and concentration risk — all reversible and never in the critical path.
+
+See /changes/CHANGES.md for a clear record of what was removed from the larger desk and what the current system contains.
+
+The system is still research + recommendation only. You stay in control of every trade.
+
+Start simple. Let the first two weeks of briefs run. Tighten via Evolve only where results clearly improve.
+
+End of document.
